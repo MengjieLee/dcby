@@ -175,3 +175,4 @@ cython_debug/
 
 # Distribution / build outputs
 dist/
+.cursorrules
