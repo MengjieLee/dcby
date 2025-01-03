@@ -172,10 +172,6 @@ cython_debug/
 
 # IDE - VSCode
 .vscode/
-.vscode/*
-*.code-workspace
-.history/
 
 # Distribution / build outputs
 dist/
-dist/*
