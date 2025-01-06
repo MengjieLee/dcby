@@ -62,7 +62,7 @@ if __name__ == "__main__":
 ### 5. Docker配置
 Dockerfile 内容：
 ```dockerfile
-FROM python:3.8-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
@@ -94,7 +94,7 @@ build_image.sh 内容：
 #!/bin/bash
 
 # 设置版本号
-VERSION="0.1.0"
+VERSION="0.1.2"
 TIMESTAMP=$(date +%Y%m%d%H%M%S)
 IMAGE_NAME="python-api-demo"
 
@@ -123,7 +123,7 @@ git init
 
 # 添加文件到版本控制
 git add .
-git commit -m "[2024-01-03]: [0.1.0] 初始化项目，创建基础Web API框架"
+git commit -m "[2024-01-03]: [0.1.2] 更新公网访问配置，修改服务端口为9527"
 
 # 推送到远程仓库（假设已配置）
 git push origin main
@@ -146,12 +146,21 @@ python src/main.py
 ### 2. 构建Docker镜像
 ```bash
 # 方法1：直接使用Docker命令
-docker build -t python-api-demo:0.1.0 .
-docker run -p 8000:8000 python-api-demo:0.1.0
+docker build -t python-api-demo:0.1.2 .
+docker run -p 9527:8000 python-api-demo:0.1.2
 
 # 方法2：使用构建脚本
 chmod +x build_image.sh
 ./build_image.sh
+```
+
+### 3. 公网部署
+```bash
+# 部署到指定服务器
+docker run -d -p 9527:8000 python-api-demo:0.1.2
+
+# 访问地址
+https://dyejjfnjhrfm.sealoshzh.site:9527
 ```
 
 ## 版本管理规范
