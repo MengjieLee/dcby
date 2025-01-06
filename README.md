@@ -19,10 +19,11 @@ python src/main.py
 2. Docker运行
 ```bash
 docker build -t python-api-demo .
-docker run -p 8000:8000 python-api-demo
+docker run -p 9527:9527 python-api-demo
 ```
 
 ## 更新日志
 - [2024-01-03]: [0.1.0] 初始化项目，创建基础Web API框架
 - [2024-01-03]: [0.1.1] 统一Python版本为3.11
 - [2024-01-03]: [0.1.2] 添加远程部署功能
+- [2025-01-06]: [0.1.3] 增强Dockerfile配置，使用entrypoint.sh作为容器入口点

@@ -62,7 +62,7 @@ if __name__ == "__main__":
 ### 5. Docker配置
 Dockerfile 内容：
 ```dockerfile
-FROM python:3.8-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
@@ -70,10 +70,12 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src/ ./src/
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
 
-EXPOSE 8000
+EXPOSE 9527
 
-CMD ["python", "src/main.py"]
+ENTRYPOINT ["/app/entrypoint.sh"]
 ```
 
 .dockerignore 内容：
