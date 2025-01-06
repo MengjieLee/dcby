@@ -129,6 +129,56 @@ git commit -m "[2024-01-03]: [0.1.0] 初始化项目，创建基础Web API框架
 git push origin main
 ```
 
+### 8. 远程部署
+deploy.sh 内容：
+```bash
+#!/bin/bash
+
+# 设置变量
+REMOTE_USER="devbox"
+REMOTE_HOST="hzh.sealos.run"
+REMOTE_PORT="38829"
+REMOTE_PATH="/home/devbox/app"
+APP_PORT="9527"
+IMAGE_NAME="python-api-demo"
+VERSION="0.1.2"
+
+# 获取最新的镜像文件
+LATEST_IMAGE=$(ls -t dist/*.tar | head -n1)
+if [ -z "$LATEST_IMAGE" ]; then
+    echo "错误：未找到镜像文件"
+    exit 1
+fi
+
+echo "使用镜像文件: $LATEST_IMAGE"
+
+# 创建远程目录
+ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "mkdir -p $REMOTE_PATH"
+
+# 复制镜像文件到远程服务器
+echo "正在传输镜像文件到远程服务器..."
+scp -P $REMOTE_PORT $LATEST_IMAGE $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/image.tar
+
+# 在远程服务器上执行部署
+echo "正在远程部署应用..."
+ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST << EOF
+    cd $REMOTE_PATH
+    # 加载镜像
+    docker load < image.tar
+    # 停止并删除旧容器（如果存在）
+    docker stop $IMAGE_NAME 2>/dev/null || true
+    docker rm $IMAGE_NAME 2>/dev/null || true
+    # 启动新容器
+    docker run -d --name $IMAGE_NAME -p $APP_PORT:8000 $IMAGE_NAME:$VERSION
+    # 检查容器状态
+    docker ps | grep $IMAGE_NAME
+EOF
+
+echo "部署完成！"
+echo "应用可通过以下地址访问："
+echo "https://dyejjfnjhrfm.sealoshzh.site:$APP_PORT"
+```
+
 ## 本地开发流程
 
 ### 1. 运行应用
@@ -156,9 +206,11 @@ chmod +x build_image.sh
 
 ### 3. 部署应用
 ```bash
-# 方法1：使用部署脚本
-chmod +x deploy.sh
+# 方法1：单独部署
 ./deploy.sh
+
+# 方法2：构建并部署（推荐）
+./build_image.sh  # 构建脚本会自动调用部署脚本
 ```
 
 ## 版本管理规范
@@ -187,16 +239,5 @@ chmod +x deploy.sh
 
 ## 更新日志
 [2024-01-03]: [0.1.0] 初始化项目，创建基础Web API框架
-[2024-01-03]: [0.1.0] 添加Docker镜像构建脚本
-[2024-01-03]: [0.1.0] 添加开发文档
 [2024-01-03]: [0.1.1] 统一Python版本为3.11
-[2024-01-03]: [0.1.1] 添加自动部署脚本
-
-## 部署说明
-项目支持自动部署到指定服务器：
-- 部署地址：https://dyejjfnjhrfm.sealoshzh.site
-- 部署端口：9527
-- 部署流程：
-  1. 构建Docker镜像：`./build_image.sh`
-  2. 部署到服务器：`./deploy.sh`
-- 访问地址：http://dyejjfnjhrfm.sealoshzh.site:9527 
+[2024-01-03]: [0.1.2] 添加远程部署功能 

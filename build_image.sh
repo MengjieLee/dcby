@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 设置版本号
-VERSION="0.1.1"
+VERSION="0.1.2"
 TIMESTAMP=$(date +%Y%m%d%H%M%S)
 IMAGE_NAME="python-api-demo"
 
@@ -20,4 +20,8 @@ docker save ${IMAGE_NAME}:${VERSION} > dist/${IMAGE_NAME}-${TIMESTAMP}.tar
 echo "清理旧的镜像文件..."
 cd dist && ls -t *.tar | tail -n +4 | xargs -r rm --
 
-echo "镜像构建完成！" 
+echo "镜像构建完成！"
+
+# 执行部署脚本
+echo "开始部署到远程服务器..."
+cd .. && ./deploy.sh 
