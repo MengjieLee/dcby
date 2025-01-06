@@ -62,7 +62,7 @@ if __name__ == "__main__":
 ### 5. Docker配置
 Dockerfile 内容：
 ```dockerfile
-FROM python:3.11-slim
+FROM python:3.8-slim
 
 WORKDIR /app
 
@@ -94,7 +94,7 @@ build_image.sh 内容：
 #!/bin/bash
 
 # 设置版本号
-VERSION="0.1.2"
+VERSION="0.1.0"
 TIMESTAMP=$(date +%Y%m%d%H%M%S)
 IMAGE_NAME="python-api-demo"
 
@@ -123,7 +123,7 @@ git init
 
 # 添加文件到版本控制
 git add .
-git commit -m "[2024-01-03]: [0.1.2] 更新公网访问配置，修改服务端口为9527"
+git commit -m "[2024-01-03]: [0.1.0] 初始化项目，创建基础Web API框架"
 
 # 推送到远程仓库（假设已配置）
 git push origin main
@@ -146,21 +146,19 @@ python src/main.py
 ### 2. 构建Docker镜像
 ```bash
 # 方法1：直接使用Docker命令
-docker build -t python-api-demo:0.1.2 .
-docker run -p 9527:8000 python-api-demo:0.1.2
+docker build -t python-api-demo:0.1.0 .
+docker run -p 8000:8000 python-api-demo:0.1.0
 
 # 方法2：使用构建脚本
 chmod +x build_image.sh
 ./build_image.sh
 ```
 
-### 3. 公网部署
+### 3. 部署应用
 ```bash
-# 部署到指定服务器
-docker run -d -p 9527:8000 python-api-demo:0.1.2
-
-# 访问地址
-https://dyejjfnjhrfm.sealoshzh.site:9527
+# 方法1：使用部署脚本
+chmod +x deploy.sh
+./deploy.sh
 ```
 
 ## 版本管理规范
@@ -185,4 +183,20 @@ https://dyejjfnjhrfm.sealoshzh.site:9527
 ├── src/               # 源代码目录
 │   └── main.py       # 主程序入口
 └── venv/              # Python虚拟环境
-``` 
+```
+
+## 更新日志
+[2024-01-03]: [0.1.0] 初始化项目，创建基础Web API框架
+[2024-01-03]: [0.1.0] 添加Docker镜像构建脚本
+[2024-01-03]: [0.1.0] 添加开发文档
+[2024-01-03]: [0.1.1] 统一Python版本为3.11
+[2024-01-03]: [0.1.1] 添加自动部署脚本
+
+## 部署说明
+项目支持自动部署到指定服务器：
+- 部署地址：https://dyejjfnjhrfm.sealoshzh.site
+- 部署端口：9527
+- 部署流程：
+  1. 构建Docker镜像：`./build_image.sh`
+  2. 部署到服务器：`./deploy.sh`
+- 访问地址：http://dyejjfnjhrfm.sealoshzh.site:9527 

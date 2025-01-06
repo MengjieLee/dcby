@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 设置版本号
-VERSION="0.1.2"
+VERSION="0.1.1"
 TIMESTAMP=$(date +%Y%m%d%H%M%S)
 IMAGE_NAME="python-api-demo"
 
