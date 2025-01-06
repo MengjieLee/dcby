@@ -6,10 +6,10 @@
 ```bash
 # 安装基础工具
 sudo apt-get update
-sudo apt-get install -y python3-pip python3.12-venv
+sudo apt-get install -y python3-pip python3.11-venv
 
 # 创建并激活Python虚拟环境
-python3 -m venv venv
+python3.11 -m venv venv
 source venv/bin/activate
 ```
 
