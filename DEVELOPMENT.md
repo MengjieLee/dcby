@@ -206,12 +206,25 @@ chmod +x build_image.sh
 
 ### 3. 部署应用
 ```bash
-# 方法1：单独部署
+# 方法1：使用默认配置部署
 ./deploy.sh
 
-# 方法2：构建并部署（推荐）
-./build_image.sh  # 构建脚本会自动调用部署脚本
+# 方法2：使用自定义配置部署
+./deploy.sh --host example.com --port 22 --user admin --app-url myapp.example.com --app-port 8080
+
+# 方法3：构建并使用默认配置部署（推荐）
+./build_image.sh
+
+# 查看部署脚本帮助信息
+./deploy.sh --help
 ```
+
+支持的部署参数：
+- `-h, --host`：远程主机地址（默认：hzh.sealos.run）
+- `-p, --port`：SSH端口（默认：38829）
+- `-u, --user`：远程用户名（默认：devbox）
+- `-a, --app-url`：应用访问域名（默认：dyejjfnjhrfm.sealoshzh.site）
+- `-P, --app-port`：应用端口（默认：9527）
 
 ## 版本管理规范
 
