@@ -6,10 +6,10 @@
 ```bash
 # 安装基础工具
 sudo apt-get update
-sudo apt-get install -y python3-pip python3.11-venv
+sudo apt-get install -y python3-pip python3.12-venv
 
 # 创建并激活Python虚拟环境
-python3.11 -m venv venv
+python3.12 -m venv venv
 source venv/bin/activate
 ```
 
@@ -62,7 +62,7 @@ if __name__ == "__main__":
 ### 5. Docker配置
 Dockerfile 内容：
 ```dockerfile
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 WORKDIR /app
 
@@ -254,5 +254,5 @@ chmod +x build_image.sh
 
 ## 更新日志
 - [2024-01-03]: [0.1.0] 初始化项目，创建基础Web API框架
-- [2024-01-03]: [0.1.1] 统一Python版本为3.11
+- [2024-01-03]: [0.1.1] 统一Python版本为3.12
 - [2024-01-03]: [0.1.2] 添加远程部署功能 
