@@ -60,9 +60,12 @@ if __name__ == "__main__":
 ```
 
 ### 5. Docker配置
+#### 基础镜像说明
+本项目使用阿里云镜像源以提高在中国大陆的访问速度。如果在海外使用，可以将基础镜像改回 `python:3.12`。
+
 Dockerfile 内容：
 ```dockerfile
-FROM python:3.12
+FROM registry.cn-hangzhou.aliyuncs.com/library/python:3.12
 
 WORKDIR /app
 

@@ -18,9 +18,12 @@ python src/main.py
 
 2. Docker运行
 ```bash
+# 使用阿里云镜像源加速构建
 docker build -t python-api-demo .
 docker run -p 9527:9527 python-api-demo
 ```
+
+> 注意：项目使用阿里云镜像源以提高在中国大陆的访问速度。如果在海外使用，可以修改 Dockerfile 中的基础镜像为 `python:3.12`。
 
 ## 更新日志
 - [2024-01-03]: [0.1.0] 初始化项目，创建基础Web API框架

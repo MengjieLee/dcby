@@ -1,4 +1,4 @@
-FROM python:3.12
+FROM registry.cn-hangzhou.aliyuncs.com/library/python:3.12
 
 WORKDIR /app
 
