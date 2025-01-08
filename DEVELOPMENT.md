@@ -62,7 +62,7 @@ if __name__ == "__main__":
 ### 5. Docker配置
 Dockerfile 内容：
 ```dockerfile
-FROM python:3.12-slim
+FROM python:3.12
 
 WORKDIR /app
 
